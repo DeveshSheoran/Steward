@@ -1,0 +1,24 @@
+[
+ {
+  "scenario": "onboard_finance_priv_approved",
+  "run": 1,
+  "task_id": "task_196b07663877",
+  "status": "completed",
+  "expected_status": "completed",
+  "status_ok": true,
+  "ground_truth_ok": true,
+  "failures": [],
+  "verifier": "PASS",
+  "steps": 9,
+  "llm_calls": 14,
+  "tokens_in": 182427,
+  "tokens_out": 6639,
+  "seconds": 110.7,
+  "write_retries": 0,
+  "approvals_decided": 1,
+  "questions_asked": 0,
+  "audit_chain_ok": true,
+  "evidence_ok": true,
+  "error": ""
+ }
+]

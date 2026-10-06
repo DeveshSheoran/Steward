@@ -1,0 +1,52 @@
+# Company policy for the Steward AI operator (sample company: "Northwind Retail", fictional).
+# Evaluated by steward/policy.py. Risk levels: 0=read 1=reversible write 2=external 3=critical.
+version: 1
+
+defaults:
+  auto_allow_max_risk: 1          # R0/R1 run without a human; R2+ need approval unless a rule allows
+  default_approver: ops-manager
+
+roles:
+  ops-agent:                      # the identity Steward acts under
+    allow_tools: ["browser.*", "files.*", "http.get", "http.request", "outbox.*", "directory.*", "memory.*", "task.*", "ask_human"]
+    deny_tools:  ["files.delete", "shell.*"]
+
+rules:
+  # --- money -----------------------------------------------------------
+  - id: refund-small-ok
+    when: "system == 'billing' and args.amount != None and args.amount <= 2000"
+    action: allow
+    reason: "Refunds up to INR 2000 may be issued by the operator (Policy FIN-4)"
+  - id: refund-large
+    when: "system == 'billing' and args.amount != None and args.amount > 2000"
+    action: require_approval
+    approver: finance-manager
+    reason: "Refunds above INR 2000 need finance-manager approval (Policy FIN-4)"
+  - id: refund-hard-cap
+    when: "system == 'billing' and args.amount != None and args.amount > 50000"
+    action: deny
+    reason: "Refunds above INR 50000 are never done by the operator (Policy FIN-9)"
+
+  # --- access / permissions -------------------------------------------
+  - id: admin-grant
+    when: "system == 'admin_console' and args.group != None and args.group.lower() in ['admins', 'finance-admins']"
+    action: require_approval
+    approver: it-security
+    reason: "Privileged group membership requires IT-security approval (Policy SEC-2)"
+
+  # --- customer communication ------------------------------------------
+  - id: ticket-reply-ok
+    when: "system == 'helpdesk'"
+    action: allow
+    reason: "Replying to customers on helpdesk tickets is part of the support SOP"
+
+  # --- outbound comms --------------------------------------------------
+  - id: internal-mail-ok
+    when: "tool == 'outbox.send' and args.to != None and args.to.endswith('@northwind.example')"
+    action: allow
+    reason: "Internal email is allowed"
+  - id: external-mail-needs-review
+    when: "tool == 'outbox.send' and args.to != None and not args.to.endswith('@northwind.example')"
+    action: require_approval
+    approver: ops-manager
+    reason: "External email needs review (Policy COMM-1)"

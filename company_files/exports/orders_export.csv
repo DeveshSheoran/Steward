@@ -1,0 +1,5 @@
+order_id,customer,plan,amount,refunded,status
+A-1001,Rohan Mehta,standard,1500,0,paid
+A-1002,Ananya Rao,standard,4200,0,paid
+A-1003,Acme Logistics,enterprise,17500,0,paid
+A-1004,Vikram Joshi,standard,900,0,paid

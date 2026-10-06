@@ -1,0 +1,23 @@
+# Systems the operator may touch. This is how Steward knows WHERE it is allowed to go and
+# which write operations exist and how risky they are. Reads (GET) are free inside these hosts.
+systems:
+  billing:
+    description: Billing and orders (refunds, payments)
+    base_url: http://127.0.0.1:8800/billing/orders
+    prefix: /billing
+    mutations:
+      - {match: "POST /billing/refunds", risk: R3, label: "Issue a refund"}
+  helpdesk:
+    description: Customer support tickets
+    base_url: http://127.0.0.1:8800/helpdesk/tickets
+    prefix: /helpdesk
+    mutations:
+      - {match: "POST /helpdesk/tickets/*/reply", risk: R2, label: "Reply to a customer / change ticket status"}
+  admin_console:
+    description: Employee accounts, groups and service requests
+    base_url: http://127.0.0.1:8800/admin/users
+    prefix: /admin
+    mutations:
+      - {match: "POST /admin/users", risk: R1, label: "Create user account"}
+      - {match: "POST /admin/users/*/groups", risk: R1, label: "Add user to a group"}
+      - {match: "POST /admin/requests", risk: R1, label: "Raise a service request"}

@@ -1,0 +1,26 @@
+[
+ {
+  "scenario": "weekly_report",
+  "run": 1,
+  "task_id": "task_127fd1e3f08d",
+  "status": "dead",
+  "expected_status": "completed",
+  "status_ok": false,
+  "ground_truth_ok": false,
+  "failures": [
+   "weekly_ops_report.md not written"
+  ],
+  "verifier": null,
+  "steps": null,
+  "llm_calls": null,
+  "tokens_in": null,
+  "tokens_out": null,
+  "seconds": 14.2,
+  "write_retries": 0,
+  "approvals_decided": 0,
+  "questions_asked": 0,
+  "audit_chain_ok": true,
+  "evidence_ok": true,
+  "error": "claude CLI failed (exit 1): You've hit your session limit \u00b7 resets 3:20pm (Asia/Kolkata)"
+ }
+]

@@ -1,0 +1,7 @@
+company: Northwind Retail
+# Who is who at Northwind Retail (fictional). Used for approver routing and "email the manager" style steps.
+people:
+  - {name: Priya Nair,   email: priya@northwind.example,        role: Finance Manager,     approver_for: [finance-manager]}
+  - {name: Dev Patel,    email: dev@northwind.example,          role: Engineering Manager}
+  - {name: Meera Iyer,   email: meera.iyer@northwind.example,   role: Operations Lead,      approver_for: [ops-manager]}
+  - {name: Sana Qureshi, email: sana.qureshi@northwind.example, role: IT Security Lead,     approver_for: [it-security]}
