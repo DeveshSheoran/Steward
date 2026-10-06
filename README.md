@@ -40,10 +40,11 @@ changing only the *Company Pack* (`company_pack/`: SOPs, systems, policies, peop
 
 ## Quickstart
 ```bash
+git clone https://github.com/DeveshSheoran/Steward.git && cd Steward
 python3 -m venv .venv && source .venv/bin/activate        # fish: source .venv/bin/activate.fish
 python -m pip install -r requirements.txt
 python -m playwright install chromium                      # on Ubuntu 20.04 skip this and use system Chrome (below)
-cp .env.example .env                                       # choose an LLM backend, see below
+cp .env.example .env                                       # defaults to STEWARD_LLM=claude_code; for the API set STEWARD_LLM=anthropic + ANTHROPIC_API_KEY
 python -m pytest -q                                        # ~70 tests, no API key needed (scripted LLM, real browser)
 
 # terminal 1: the mock company systems (Admin Console, Helpdesk, Billing on :8800)
